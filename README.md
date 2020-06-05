@@ -1,2 +1,0 @@
-# monster-rolodex
-Monster Rolodex

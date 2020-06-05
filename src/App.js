@@ -9,22 +9,22 @@ class App extends Component {
     super();
     this.state = {
       monsters: [],
-      searchField: ""
+      searchField: "",
     };
   }
 
   componentDidMount() {
     fetch("https://jsonplaceholder.typicode.com/users")
-      .then(response => response.json())
-      .then(users => this.setState({ monsters: users }));
+      .then((response) => response.json())
+      .then((users) => this.setState({ monsters: users }));
   }
 
-  handleChange = e => {
+  handleChange = (e) => {
     this.setState({ searchField: e.target.value });
   };
   render() {
     const { monsters, searchField } = this.state;
-    const filteredMonsters = monsters.filter(monster =>
+    const filteredMonsters = monsters.filter((monster) =>
       monster.name.toLowerCase().includes(searchField.toLowerCase())
     );
 
@@ -36,6 +36,19 @@ class App extends Component {
           handleChange={this.handleChange}
         />
         <CardList monsters={filteredMonsters} />
+        <footer className="footer">
+          © {new Date().getFullYear()}, Made with
+          <span
+            style={{ margin: "0 0.3rem" }}
+            role="img"
+            aria-labelledby="heart emoji"
+          >
+            ❤️
+          </span>
+          by
+          {` `}
+          <a href="https://twitter.com/wasifbaliyan">Wasif Baliyan</a>
+        </footer>
       </div>
     );
   }

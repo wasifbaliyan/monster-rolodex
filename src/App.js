@@ -7,11 +7,15 @@ import "./App.css";
 function App() {
   const [searchField, setSearchField] = useState("");
   const [monsters, setMonsters] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/users")
       .then((response) => response.json())
-      .then((users) => setMonsters(users));
+      .then((users) => {
+        setMonsters(users);
+        setIsLoading(false);
+      });
   }, [monsters]);
   const handleChange = (e) => {
     setSearchField(e.target.value);
@@ -24,7 +28,11 @@ function App() {
     <div className="App">
       <h1>Monster Rolodex</h1>
       <SearchBox placeholder="Search Monsters" handleChange={handleChange} />
-      <CardList monsters={filteredMonsters} />
+      {isLoading ? (
+        <h1>Loading...</h1>
+      ) : (
+        <CardList monsters={filteredMonsters} />
+      )}
       <footer className="footer">
         © {new Date().getFullYear()}, Made with
         <span
